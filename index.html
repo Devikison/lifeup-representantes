@@ -248,7 +248,7 @@
       <div class="hero">
         <img src="assets/img/lifeup-logo.png" alt="Life Up" class="hero-logo">
         <h1>Seja um Representante Comercial Life Up</h1>
-        <p>A Life Up está selecionando representantes comerciais para expandir a marca em novas regiões. Preencha o formulário abaixo com atenção — ele é a base da nossa avaliação.</p>
+        <p>A Life Up está selecionando representantes comerciais para expandir a marca em novas regiões. Preencha o formulário abaixo com atenção, ele é a base da nossa avaliação.</p>
       </div>
 
       <div class="beneficios">
@@ -454,7 +454,7 @@
   </div>
 
 <script>
-// O PIN não fica salvo aqui no HTML — é validado direto pelo Apps Script.
+// O PIN não fica salvo aqui no HTML, é validado direto pelo Apps Script.
 let chaveAcesso = null;
 
 // Cole aqui a URL do seu Apps Script depois de implantar (termina com /exec).
@@ -688,7 +688,7 @@ async function renderizarLista(){
           <div><strong>Horário disponível</strong>${c.horario || 'Não informado'}</div>
           <div><strong>Modalidade</strong>${c.modalidade || 'Não informado'}</div>
           <div><strong>Pretensão</strong>${c.pretensao || 'Não informado'}</div>
-          <div><strong>CNH</strong>${c.cnh === 'Sim' ? ('Sim — categoria ' + (c.cnhCategoria || '?')) : 'Não'}</div>
+          <div><strong>CNH</strong>${c.cnh === 'Sim' ? ('Sim, categoria ' + (c.cnhCategoria || '?')) : 'Não'}</div>
           <div><strong>Disponibilidade p/ viagens</strong>${c.viagens || 'Não informado'}</div>
         </div>
         <div class="detalhe-full">
