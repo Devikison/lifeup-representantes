@@ -119,6 +119,10 @@
   }
   .campo input::placeholder, .campo textarea::placeholder{color:rgba(255,255,255,0.55);}
   .campo textarea{min-height:80px;resize:vertical;}
+  .campo input[type="date"]{
+    -webkit-appearance:none;appearance:none;
+    display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
+  }
   .linha-dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media (max-width:560px){.linha-dupla{grid-template-columns:1fr;}}
   .linha-tripla{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
