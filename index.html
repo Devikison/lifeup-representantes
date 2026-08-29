@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeUp - Representantes</title>
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family:'Mochi Boom';
+    src:url('assets/fonts/MochiBoom.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+  }
+  :root{
+    --purple:#A16BF5;
+    --lime:#C6FA4D;
+    --cyan:#6FE1F7;
+    --yellow:#F5FA4D;
+    --pink:#F73DBE;
+    --orange:#FFAA4D;
+    --critico:#FF5D6C;
+    --ok:#3DEBB0;
+    --fundo:#120A28;
+    --fundo2:#8C52EC;
+    --card:#A16BF5;
+    --borda:#7C3FDE;
+    --texto:#FFFFFF;
+    --texto-fraco:#FFFFFF;
+    --lilas:#F1EAFE;
+    --azul:#22296B;
+    --azul-fraco:rgba(34,41,107,0.68);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--lilas);
+    color:var(--azul);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3,.mochi{font-family:'Mochi Boom','Poppins',sans-serif;font-weight:normal;color:var(--texto);}
+
+  /* ---- HERO ---- */
+  .hero{
+    text-align:center;
+    padding:34px 20px 24px;
+  }
+  .hero-logo{
+    height:130px;
+    width:auto;
+    margin:0 auto 14px;
+    display:block;
+  }
+  .hero h1{
+    font-size:36px;
+    line-height:1.15;
+    margin:0 0 14px;
+    color:var(--azul);
+  }
+  .hero p{
+    max-width:560px;margin:0 auto;color:var(--azul-fraco);font-size:14.5px;line-height:1.6;
+  }
+
+  .beneficios{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+    margin:28px 0;
+  }
+  @media (max-width:700px){.beneficios{grid-template-columns:1fr;}}
+  .beneficio{
+    background:var(--card);
+    border:1px solid var(--borda);
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+  }
+  .beneficio .ico{font-size:26px;margin-bottom:8px;}
+  .beneficio h3{font-size:14px;margin:0 0 6px;}
+  .beneficio p{font-size:12.5px;color:var(--texto-fraco);margin:0;line-height:1.5;}
+
+  /* ---- FORM ---- */
+  .form-card{
+    background:var(--card);border:1px solid var(--borda);border-radius:18px;padding:30px;
+  }
+  @media (max-width:700px){.form-card{padding:20px;}}
+  .form-card h2{font-size:19px;margin:0 0 4px;text-align:center;}
+  .form-card .sub{text-align:center;color:var(--texto-fraco);font-size:13px;margin-bottom:24px;}
+  .form-card .secao-titulo{
+    color:var(--texto);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;
+    margin:26px 0 12px;padding-top:14px;border-top:1px solid var(--borda);
+  }
+  .form-card .secao-titulo:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+
+  .campo{margin-bottom:16px;}
+  .campo label{
+    display:block;font-size:12px;color:var(--texto-fraco);
+    text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px;font-weight:600;
+  }
+  .campo input, .campo select, .campo textarea{
+    width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--borda);
+    background:var(--fundo2);color:var(--texto);font-family:'Poppins',sans-serif;font-size:14px;
+  }
+  .campo input::placeholder, .campo textarea::placeholder{color:rgba(255,255,255,0.55);}
+  .campo textarea{min-height:80px;resize:vertical;}
+  .linha-dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:560px){.linha-dupla{grid-template-columns:1fr;}}
+  .linha-tripla{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  @media (max-width:700px){.linha-tripla{grid-template-columns:1fr;}}
+
+  .campo-erro{display:none;color:#fff;background:var(--critico);font-size:12px;padding:8px 10px;border-radius:8px;margin-top:6px;}
+
+  .check-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .check-opt{
+    padding:9px 14px;border-radius:10px;border:1px solid var(--borda);background:var(--fundo2);
+    cursor:pointer;font-size:13px;color:var(--texto-fraco);white-space:nowrap;
+  }
+  .check-opt.selecionado{background:var(--pink);border-color:var(--pink);color:#fff;font-weight:600;}
+  @media (max-width:420px){
+    .check-row.duas{flex-direction:column;}
+    .check-opt{white-space:normal;text-align:center;}
+  }
+
+  .sub-campo{margin-top:8px;display:none;}
+  .sub-campo.visivel{display:block;}
+
+  button.enviar{
+    width:100%;padding:15px;border:none;border-radius:12px;
+    background:var(--pink);color:#fff;font-family:'Poppins',sans-serif;font-weight:700;
+    font-size:15px;cursor:pointer;margin-top:10px;
+  }
+  button.enviar:disabled{opacity:0.5;cursor:not-allowed;}
+
+  .sucesso{
+    text-align:center;padding:40px 20px;
+    background:var(--card);border:1px solid var(--borda);border-radius:18px;
+  }
+  .sucesso .selo{
+    width:74px;height:74px;border-radius:50%;
+    border:3px solid var(--ok);color:var(--ok);
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;margin:0 auto 18px;
+  }
+  .sucesso h2{font-size:20px;margin-bottom:8px;color:var(--texto);}
+  .sucesso p{color:var(--texto-fraco);font-size:14px;max-width:400px;margin:0 auto;}
+  .links-sucesso{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    margin-top:22px;
+  }
+  .link-insta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 20px;border-radius:12px;
+    background:var(--pink);color:#fff;text-decoration:none;
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;
+  }
+  .sucesso-logo{height:56px;width:auto;display:block;margin:28px auto 0;}
+
+  footer{text-align:center;color:var(--azul-fraco);font-size:12.5px;margin-top:40px;}
+
+  /* ---- PAINEL DONOS ---- */
+  .gate{
+    max-width:360px;margin:60px auto;text-align:center;
+    background:var(--card);border:1px solid var(--borda);border-radius:18px;padding:30px;
+  }
+  .gate p{color:var(--texto-fraco);font-size:13px;margin-bottom:16px;}
+  .gate input{margin-bottom:12px;width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--borda);background:var(--fundo2);color:var(--texto);font-family:'Poppins',sans-serif;font-size:14px;}
+
+  .painel-donos{padding-top:10px;}
+  .resumo-donos{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;
+  }
+  @media (max-width:800px){.resumo-donos{grid-template-columns:repeat(2,1fr);}}
+  .resumo-donos .card-stat{
+    background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:14px;text-align:center;
+  }
+  .resumo-donos .card-stat .n{font-family:'Mochi Boom','Poppins',sans-serif;font-size:24px;color:var(--texto);}
+  .resumo-donos .card-stat .l{font-size:10.5px;color:var(--texto-fraco);text-transform:uppercase;letter-spacing:0.03em;margin-top:2px;}
+
+  .filtros{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+  .filtros input, .filtros select{
+    background:var(--card);border:1px solid var(--borda);border-radius:16px;
+    padding:9px 14px;color:var(--texto);font-family:'Poppins',sans-serif;font-size:13px;
+  }
+  .lista-candidatos{display:flex;flex-direction:column;gap:12px;}
+  .lista-vazia{
+    text-align:center;color:var(--texto-fraco);padding:50px 20px;
+    background:var(--card);border:1px solid var(--borda);border-radius:16px;
+  }
+  .candidato{
+    background:var(--card);border:1px solid var(--borda);border-radius:16px;
+    padding:16px 18px;
+  }
+  .candidato-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;cursor:pointer;}
+  .candidato-info h3{font-size:14.5px;margin:0 0 4px;}
+  .candidato-info .meta{font-size:12.5px;color:var(--texto-fraco);}
+  .candidato-info .meta span{margin-right:12px;}
+
+  .status-badge{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+    padding:4px 11px;border-radius:999px;white-space:nowrap;height:fit-content;
+  }
+  .status-novo{background:var(--cyan);color:var(--azul);}
+  .status-analise{background:var(--orange);color:var(--azul);}
+  .status-aprovado{background:var(--ok);color:var(--azul);}
+  .status-contrato{background:var(--yellow);color:var(--azul);}
+  .status-ativo{background:var(--pink);color:#fff;}
+  .status-recusado{background:var(--critico);color:#fff;}
+
+  .candidato-detalhe{
+    display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--borda);
+  }
+  .candidato-detalhe.aberto{display:block;}
+  .detalhe-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;font-size:13px;margin-bottom:14px;
+  }
+  @media (max-width:600px){.detalhe-grid{grid-template-columns:1fr;}}
+  .detalhe-grid div strong{display:block;color:var(--texto-fraco);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:2px;}
+  .detalhe-full{margin-bottom:14px;font-size:13px;}
+  .detalhe-full strong{display:block;color:var(--texto-fraco);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px;}
+
+  .acao-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .campo-status select{
+    background:var(--fundo2);border:1px solid var(--borda);border-radius:10px;
+    padding:9px 12px;color:var(--texto);font-family:'Poppins',sans-serif;font-size:13px;
+  }
+  .comentario-box textarea{
+    width:100%;background:var(--fundo2);border:1px solid var(--borda);border-radius:10px;
+    padding:10px 12px;color:var(--texto);font-family:'Poppins',sans-serif;font-size:13px;min-height:60px;resize:vertical;
+  }
+  .btn-salvar{
+    margin-top:10px;padding:10px 18px;border:none;border-radius:10px;
+    background:var(--pink);color:#fff;font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;cursor:pointer;
+  }
+  .salvo-msg{display:none;color:var(--ok);font-size:12px;margin-top:8px;}
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="view active" id="view-form">
+
+      <div class="hero">
+        <img src="assets/img/lifeup-logo.png" alt="LifeUp" class="hero-logo">
+        <h1>Seja um Representante Comercial LifeUp</h1>
+        <p>A LifeUp está selecionando representantes comerciais para expandir a marca em novas regiões. Preencha o formulário abaixo com atenção — ele é a base da nossa avaliação.</p>
+      </div>
+
+      <div class="beneficios">
+        <div class="beneficio">
+          <div class="ico">💼</div>
+          <h3>Comissão atrativa</h3>
+          <p>Remuneração competitiva sobre as vendas realizadas na sua região</p>
+        </div>
+        <div class="beneficio">
+          <div class="ico">🗺️</div>
+          <h3>Território próprio</h3>
+          <p>Atue na região que você já conhece e tem relacionamento</p>
+        </div>
+        <div class="beneficio">
+          <div class="ico">📦</div>
+          <h3>Suporte da marca</h3>
+          <p>Material de vendas, produtos e suporte direto da equipe LifeUp</p>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Formulário de Candidatura</h2>
+        <div class="sub">Representante Comercial · Leva cerca de 5 minutos</div>
+
+        <form id="form-candidatura" onsubmit="return false;">
+
+          <div class="secao-titulo">1. Dados pessoais</div>
+          <div class="campo">
+            <label>Nome completo</label>
+            <input type="text" id="r-nome" placeholder="Seu nome completo" required>
+          </div>
+          <div class="linha-tripla">
+            <div class="campo">
+              <label>Data de nascimento</label>
+              <input type="date" id="r-nascimento" required>
+            </div>
+            <div class="campo">
+              <label>Estado civil</label>
+              <select id="r-estado-civil">
+                <option value="Solteiro(a)">Solteiro(a)</option>
+                <option value="Casado(a)">Casado(a)</option>
+                <option value="Divorciado(a)">Divorciado(a)</option>
+                <option value="Viúvo(a)">Viúvo(a)</option>
+                <option value="União estável">União estável</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>CPF</label>
+              <input type="text" id="r-cpf" placeholder="000.000.000-00" required>
+            </div>
+          </div>
+          <div class="campo">
+            <label>Endereço completo</label>
+            <input type="text" id="r-endereco" placeholder="Rua, número, bairro, cidade/UF, CEP" required>
+          </div>
+          <div class="linha-dupla">
+            <div class="campo">
+              <label>Telefone / WhatsApp</label>
+              <input type="text" id="r-whatsapp" placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="campo">
+              <label>Email</label>
+              <input type="email" id="r-email" placeholder="voce@email.com" required>
+            </div>
+          </div>
+
+          <div class="secao-titulo">2. Experiência profissional em vendas</div>
+          <div class="campo">
+            <label>Já trabalhou como representante comercial ou em vendas? Onde e por quanto tempo?</label>
+            <textarea id="r-experiencia-vendas" placeholder="Descreva sua experiência"></textarea>
+          </div>
+          <div class="campo">
+            <label>Experiência com suplementos alimentares ou área de saúde/bem-estar</label>
+            <textarea id="r-experiencia-suplementos" placeholder="Descreva, se tiver"></textarea>
+          </div>
+          <div class="campo">
+            <label>Possui carteira de clientes própria na região? Descreva</label>
+            <textarea id="r-carteira-clientes" placeholder="Descreva, se tiver"></textarea>
+          </div>
+
+          <div class="secao-titulo">3. Disponibilidade e pretensão</div>
+          <div class="campo">
+            <label>Região(ões) de atuação pretendida(s)</label>
+            <input type="text" id="r-regiao" placeholder="Ex: Grande São Paulo, Interior de SC" required>
+          </div>
+          <div class="campo">
+            <label>Disponibilidade de horário (selecione uma ou mais)</label>
+            <div class="check-row" id="grupo-horario">
+              <div class="check-opt" data-val="Manhã">Manhã</div>
+              <div class="check-opt" data-val="Tarde">Tarde</div>
+              <div class="check-opt" data-val="Integral">Integral</div>
+              <div class="check-opt" data-val="Fins de semana">Fins de semana</div>
+            </div>
+          </div>
+          <div class="campo">
+            <label>Modalidade de trabalho pretendida</label>
+            <div class="check-row duas" id="grupo-modalidade">
+              <div class="check-opt selecionado" data-val="Exclusivo (só LifeUp)">Exclusivo (só LifeUp)</div>
+              <div class="check-opt" data-val="Não exclusivo (outras marcas também)">Não exclusivo (outras marcas também)</div>
+            </div>
+          </div>
+          <div class="campo">
+            <label>Pretensão de comissão/remuneração</label>
+            <input type="text" id="r-pretensao" placeholder="Ex: 10% sobre vendas">
+          </div>
+
+          <div class="secao-titulo">4. Veículo e deslocamento</div>
+          <div class="campo">
+            <label>Possui veículo próprio?</label>
+            <div class="check-row duas" id="grupo-veiculo">
+              <div class="check-opt selecionado" data-val="Carro">Sim, carro</div>
+              <div class="check-opt" data-val="Moto">Sim, moto</div>
+              <div class="check-opt" data-val="Não">Não</div>
+            </div>
+          </div>
+          <div class="campo">
+            <label>Possui CNH válida?</label>
+            <div class="check-row duas" id="grupo-cnh">
+              <div class="check-opt selecionado" data-val="Sim">Sim</div>
+              <div class="check-opt" data-val="Não">Não</div>
+            </div>
+            <div class="sub-campo" id="cnh-categoria-wrap">
+              <input type="text" id="r-cnh-categoria" placeholder="Categoria da CNH (ex: AB)">
+            </div>
+          </div>
+          <div class="campo">
+            <label>Disponibilidade para viagens/deslocamentos regionais</label>
+            <input type="text" id="r-viagens" placeholder="Ex: Sim, sem restrições / Só na região">
+          </div>
+
+          <div class="secao-titulo">5. Observações e motivação</div>
+          <div class="campo">
+            <label>Por que deseja representar a LifeUp Suplementos?</label>
+            <textarea id="r-motivo" placeholder="Conte um pouco sobre sua motivação"></textarea>
+          </div>
+
+          <button class="enviar" id="btn-enviar" onclick="enviarCandidatura()">Enviar candidatura</button>
+        </form>
+      </div>
+
+      <div class="sucesso" id="tela-sucesso" style="display:none;">
+        <div class="selo">✓</div>
+        <h2>Candidatura recebida</h2>
+        <p>Obrigado por querer representar a LifeUp. Nosso time vai analisar seu perfil e entra em contato pelo WhatsApp ou email em breve.</p>
+        <div class="links-sucesso">
+          <a class="link-insta" href="https://www.instagram.com/minhalifeup/" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+            </svg>
+            Voltar pro Instagram da LifeUp
+          </a>
+          <a class="link-insta" href="https://lifeupsuplementos.com.br/" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+              <ellipse cx="12" cy="12" rx="4" ry="9" stroke="currentColor" stroke-width="2"/>
+              <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Visitar o site da LifeUp
+          </a>
+        </div>
+        <img class="sucesso-logo" src="assets/img/lifeup-logo.png" alt="LifeUp">
+      </div>
+
+      <footer>LifeUp · Mais vida em forma de goma 💜</footer>
+    </div>
+
+    <!-- ==================== VIEW DONOS ==================== -->
+    <div class="view" id="view-donos">
+
+      <div class="gate" id="tela-gate">
+        <h2 style="font-size:17px;">Acesso do time LifeUp</h2>
+        <p>Área restrita para avaliação de candidatos a representante. Digite o código de acesso.</p>
+        <input type="password" id="pin-input" placeholder="Código de acesso">
+        <button class="enviar" onclick="validarPin()">Entrar</button>
+      </div>
+
+      <div class="painel-donos" id="painel-donos" style="display:none;">
+        <h2 style="color:var(--azul);font-size:20px;">Candidatos a Representante</h2>
+        <p style="color:var(--azul-fraco);font-size:13px;margin-bottom:20px;">Clique em um candidato para ver detalhes, mudar status e comentar</p>
+
+        <div class="resumo-donos" id="resumo-donos"></div>
+
+        <div class="filtros">
+          <input type="text" id="filtro-busca" placeholder="Buscar por nome ou região" oninput="renderizarLista()">
+          <select id="filtro-status" onchange="renderizarLista()">
+            <option value="">Todos os status</option>
+            <option value="novo">Novo</option>
+            <option value="analise">Em análise</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="contrato">Contrato enviado</option>
+            <option value="ativo">Ativo</option>
+            <option value="recusado">Recusado</option>
+          </select>
+        </div>
+
+        <div class="lista-candidatos" id="lista-candidatos"></div>
+
+        <p style="text-align:center;color:var(--azul-fraco);font-size:11.5px;margin-top:24px;">Dados armazenados de forma compartilhada nesta ferramenta. Trate como uma área interna, não compartilhe o acesso.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+// O PIN não fica salvo aqui no HTML — é validado direto pelo Apps Script.
+let chaveAcesso = null;
+
+// Cole aqui a URL do seu Apps Script depois de implantar (termina com /exec).
+const APPS_SCRIPT_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+const params = new URLSearchParams(window.location.search);
+if(params.get('painel') === 'donos'){
+  trocarView('donos');
+}
+
+function trocarView(view){
+  document.getElementById('view-form').classList.toggle('active', view==='form');
+  document.getElementById('view-donos').classList.toggle('active', view==='donos');
+}
+
+async function validarPin(){
+  const val = document.getElementById('pin-input').value.trim();
+  const btn = document.querySelector('#tela-gate .enviar');
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+
+  try{
+    const res = await fetch(`${APPS_SCRIPT_URL}?chave=${encodeURIComponent(val)}`);
+    const data = await res.json();
+    if(data.ok){
+      chaveAcesso = val;
+      document.getElementById('tela-gate').style.display = 'none';
+      document.getElementById('painel-donos').style.display = 'block';
+      renderizarLista();
+    } else {
+      alert('Código incorreto.');
+    }
+  } catch(e){
+    alert('Não foi possível verificar agora. Tente novamente.');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Entrar';
+}
+
+// grupos de seleção única (visual tipo botão)
+function configurarGrupoUnico(id){
+  document.querySelectorAll(`#${id} .check-opt`).forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      document.querySelectorAll(`#${id} .check-opt`).forEach(o=>o.classList.remove('selecionado'));
+      opt.classList.add('selecionado');
+      if(id === 'grupo-cnh'){
+        const wrap = document.getElementById('cnh-categoria-wrap');
+        wrap.classList.toggle('visivel', opt.dataset.val === 'Sim');
+      }
+    });
+  });
+}
+configurarGrupoUnico('grupo-modalidade');
+configurarGrupoUnico('grupo-veiculo');
+configurarGrupoUnico('grupo-cnh');
+document.getElementById('cnh-categoria-wrap').classList.add('visivel');
+
+// grupo de seleção múltipla (horário)
+document.querySelectorAll('#grupo-horario .check-opt').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    opt.classList.toggle('selecionado');
+  });
+});
+
+function valorGrupoUnico(id){
+  const el = document.querySelector(`#${id} .selecionado`);
+  return el ? el.dataset.val : '';
+}
+function valorGrupoMultiplo(id){
+  return Array.from(document.querySelectorAll(`#${id} .selecionado`)).map(el=>el.dataset.val).join(', ');
+}
+
+async function enviarCandidatura(){
+  const nome = document.getElementById('r-nome').value.trim();
+  const nascimento = document.getElementById('r-nascimento').value;
+  const cpf = document.getElementById('r-cpf').value.trim();
+  const endereco = document.getElementById('r-endereco').value.trim();
+  const whatsapp = document.getElementById('r-whatsapp').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const regiao = document.getElementById('r-regiao').value.trim();
+
+  if(!nome || !nascimento || !cpf || !endereco || !whatsapp || !email || !regiao){
+    alert('Preencha os campos obrigatórios antes de enviar.');
+    return;
+  }
+
+  const novoCandidato = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+    nome,
+    nascimento,
+    estadoCivil: document.getElementById('r-estado-civil').value,
+    cpf,
+    endereco,
+    whatsapp,
+    email,
+    experienciaVendas: document.getElementById('r-experiencia-vendas').value.trim(),
+    experienciaSuplementos: document.getElementById('r-experiencia-suplementos').value.trim(),
+    carteiraClientes: document.getElementById('r-carteira-clientes').value.trim(),
+    regiao,
+    horario: valorGrupoMultiplo('grupo-horario'),
+    modalidade: valorGrupoUnico('grupo-modalidade'),
+    pretensao: document.getElementById('r-pretensao').value.trim(),
+    veiculo: valorGrupoUnico('grupo-veiculo'),
+    cnh: valorGrupoUnico('grupo-cnh'),
+    cnhCategoria: document.getElementById('r-cnh-categoria').value.trim(),
+    viagens: document.getElementById('r-viagens').value.trim(),
+    motivo: document.getElementById('r-motivo').value.trim(),
+    status: 'novo',
+    comentario: '',
+    data: new Date().toISOString()
+  };
+
+  const btn = document.getElementById('btn-enviar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const ok = await enviarNovoCandidato(novoCandidato);
+
+  btn.disabled = false;
+  btn.textContent = 'Enviar candidatura';
+
+  if(ok){
+    document.getElementById('form-candidatura').closest('.form-card').style.display = 'none';
+    document.querySelector('.beneficios').style.display = 'none';
+    document.getElementById('tela-sucesso').style.display = 'block';
+  } else {
+    alert('Não foi possível enviar agora. Tente novamente em instantes.');
+  }
+}
+
+async function enviarNovoCandidato(candidato){
+  try{
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ acao: 'novo', candidato })
+    });
+    const data = await res.json();
+    return !!data.ok;
+  } catch(e){
+    console.error('Erro ao enviar candidato', e);
+    return false;
+  }
+}
+
+async function carregarCandidatos(){
+  try{
+    const res = await fetch(`${APPS_SCRIPT_URL}?chave=${encodeURIComponent(chaveAcesso)}`);
+    const data = await res.json();
+    if(!data.ok) return [];
+    return data.candidatos || [];
+  } catch(e){
+    console.error('Erro ao carregar candidatos', e);
+    return [];
+  }
+}
+
+function labelStatus(s){
+  return {
+    novo:'Novo', analise:'Em análise', aprovado:'Aprovado',
+    contrato:'Contrato enviado', ativo:'Ativo', recusado:'Recusado'
+  }[s] || s;
+}
+
+function formatarData(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleDateString('pt-BR');
+  } catch(e){ return ''; }
+}
+
+let todosCandidatos = [];
+
+async function renderizarLista(){
+  todosCandidatos = await carregarCandidatos();
+
+  const busca = document.getElementById('filtro-busca').value.trim().toLowerCase();
+  const statusF = document.getElementById('filtro-status').value;
+
+  const filtrados = todosCandidatos.filter(c=>{
+    const okBusca = !busca || (c.nome||'').toLowerCase().includes(busca) || (c.regiao||'').toLowerCase().includes(busca);
+    const okStatus = !statusF || c.status === statusF;
+    return okBusca && okStatus;
+  });
+
+  const resumo = document.getElementById('resumo-donos');
+  const contagem = {
+    total: todosCandidatos.length,
+    novo: todosCandidatos.filter(c=>c.status==='novo').length,
+    analise: todosCandidatos.filter(c=>c.status==='analise').length,
+    aprovado: todosCandidatos.filter(c=>c.status==='aprovado').length,
+    ativo: todosCandidatos.filter(c=>c.status==='ativo').length
+  };
+  resumo.innerHTML = `
+    <div class="card-stat"><div class="n">${contagem.total}</div><div class="l">Total</div></div>
+    <div class="card-stat"><div class="n">${contagem.novo}</div><div class="l">Novos</div></div>
+    <div class="card-stat"><div class="n">${contagem.analise}</div><div class="l">Em análise</div></div>
+    <div class="card-stat"><div class="n">${contagem.aprovado}</div><div class="l">Aprovados</div></div>
+    <div class="card-stat"><div class="n">${contagem.ativo}</div><div class="l">Ativos</div></div>
+  `;
+
+  const container = document.getElementById('lista-candidatos');
+  if(filtrados.length === 0){
+    container.innerHTML = `<div class="lista-vazia">Nenhum candidato encontrado com esse filtro.</div>`;
+    return;
+  }
+
+  container.innerHTML = filtrados.map(c => `
+    <div class="candidato" id="cand-${c.id}">
+      <div class="candidato-top" onclick="alternarDetalhe('${c.id}')">
+        <div class="candidato-info">
+          <h3>${c.nome}</h3>
+          <div class="meta">
+            <span>${c.regiao || ''}</span>
+            <span>${c.veiculo || ''}</span>
+            <span>${formatarData(c.data)}</span>
+          </div>
+        </div>
+        <span class="status-badge status-${c.status}">${labelStatus(c.status)}</span>
+      </div>
+
+      <div class="candidato-detalhe" id="detalhe-${c.id}">
+        <div class="detalhe-grid">
+          <div><strong>Data de nascimento</strong>${c.nascimento || 'Não informado'}</div>
+          <div><strong>Estado civil</strong>${c.estadoCivil || 'Não informado'}</div>
+          <div><strong>CPF</strong>${c.cpf || 'Não informado'}</div>
+          <div><strong>WhatsApp</strong>${c.whatsapp}</div>
+          <div><strong>Email</strong>${c.email}</div>
+          <div><strong>Endereço</strong>${c.endereco || 'Não informado'}</div>
+          <div><strong>Horário disponível</strong>${c.horario || 'Não informado'}</div>
+          <div><strong>Modalidade</strong>${c.modalidade || 'Não informado'}</div>
+          <div><strong>Pretensão</strong>${c.pretensao || 'Não informado'}</div>
+          <div><strong>CNH</strong>${c.cnh === 'Sim' ? ('Sim — categoria ' + (c.cnhCategoria || '?')) : 'Não'}</div>
+          <div><strong>Disponibilidade p/ viagens</strong>${c.viagens || 'Não informado'}</div>
+        </div>
+        <div class="detalhe-full">
+          <strong>Experiência em vendas</strong>
+          ${c.experienciaVendas || 'Não preenchido.'}
+        </div>
+        <div class="detalhe-full">
+          <strong>Experiência com suplementos/saúde</strong>
+          ${c.experienciaSuplementos || 'Não preenchido.'}
+        </div>
+        <div class="detalhe-full">
+          <strong>Carteira de clientes</strong>
+          ${c.carteiraClientes || 'Não preenchido.'}
+        </div>
+        <div class="detalhe-full">
+          <strong>Motivo</strong>
+          ${c.motivo || 'Não preenchido.'}
+        </div>
+
+        <div class="acao-row">
+          <div class="campo-status">
+            <label style="display:block;font-size:11px;color:var(--texto-fraco);text-transform:uppercase;margin-bottom:6px;">Status</label>
+            <select id="status-${c.id}">
+              <option value="novo" ${c.status==='novo'?'selected':''}>Novo</option>
+              <option value="analise" ${c.status==='analise'?'selected':''}>Em análise</option>
+              <option value="aprovado" ${c.status==='aprovado'?'selected':''}>Aprovado</option>
+              <option value="contrato" ${c.status==='contrato'?'selected':''}>Contrato enviado</option>
+              <option value="ativo" ${c.status==='ativo'?'selected':''}>Ativo</option>
+              <option value="recusado" ${c.status==='recusado'?'selected':''}>Recusado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="comentario-box">
+          <label style="display:block;font-size:11px;color:var(--texto-fraco);text-transform:uppercase;margin-bottom:6px;">Comentário interno</label>
+          <textarea id="comentario-${c.id}" placeholder="Ex: perfil combina com a região X, chamar pra call">${c.comentario || ''}</textarea>
+        </div>
+
+        <button class="btn-salvar" onclick="salvarAlteracoes('${c.id}')">Salvar alterações</button>
+        <div class="salvo-msg" id="salvo-${c.id}">Alterações salvas.</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function alternarDetalhe(id){
+  const el = document.getElementById('detalhe-'+id);
+  el.classList.toggle('aberto');
+}
+
+async function salvarAlteracoes(id){
+  const status = document.getElementById('status-'+id).value;
+  const comentario = document.getElementById('comentario-'+id).value;
+
+  const btn = document.querySelector(`#detalhe-${id} .btn-salvar`);
+  if(btn){ btn.disabled = true; btn.textContent = 'Salvando...'; }
+
+  let ok = false;
+  try{
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ acao: 'atualizar', id, status, comentario, chave: chaveAcesso })
+    });
+    const data = await res.json();
+    ok = !!data.ok;
+    if(!ok && data.erro){ alert(data.erro); }
+  } catch(e){
+    console.error(e);
+  }
+
+  if(btn){ btn.disabled = false; btn.textContent = 'Salvar alterações'; }
+
+  if(ok){
+    const msg = document.getElementById('salvo-'+id);
+    msg.style.display = 'block';
+    setTimeout(()=>{ msg.style.display = 'none'; }, 2500);
+    const cand = todosCandidatos.find(c=>c.id===id);
+    if(cand){ cand.status = status; cand.comentario = comentario; }
+    const badge = document.querySelector(`#cand-${id} .status-badge`);
+    if(badge){
+      badge.className = 'status-badge status-' + status;
+      badge.textContent = labelStatus(status);
+    }
+  }
+}
+</script>
+</body>
+</html>
